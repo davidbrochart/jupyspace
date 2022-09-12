@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+defaults:
+  run:
+    shell: bash -l {0}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup mamba
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: jupyspace
+        environment-file: dev-environment.yml
+        python-version: ${{ matrix.python-version }}
+        mamba-version: "*"
+        auto-activate-base: false
+        channels: conda-forge
+
+    - name: Install jupyspace
+      run: |
+        pip install ./plugins/fps-localspace
+        pip install .[test]
+
+    - name: Run tests
+      run: |
+        pytest ./tests -v

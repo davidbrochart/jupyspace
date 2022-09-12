@@ -18,7 +18,6 @@ router = APIRouter()
 
 @router.get("/api/environments")
 async def get_environments():
-    print(f"{PROJECTS=}")
     return PROJECTS.environments
 
 

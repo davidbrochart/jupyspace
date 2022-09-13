@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 
@@ -30,6 +32,7 @@ def test_server(client):
     assert response.status_code == 200
     server = response.json()
 
+    time.sleep(10)
     response = requests.get(server["url"])
     assert response.status_code == 200
 

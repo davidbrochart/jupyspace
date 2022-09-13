@@ -1,10 +1,13 @@
 import asyncio
 import os
-import time
+import sys
+from pathlib import Path
 from typing import Dict
 
+from anyio import to_thread
 from fastapi import APIRouter, HTTPException, Request
 from fps.hooks import register_router
+from mamba.api import create
 
 from .models import Environment, Server, Projects
 from .subprocess import run_exec
@@ -34,7 +37,6 @@ async def create_environment(
             status_code=409, detail=f"Environment already exists: {name}"
         )
 
-    await run_exec("mamba", "create", "-n", name)
     packages = (
         "jupyverse",
         "httpcore>0.13.3",
@@ -43,7 +45,7 @@ async def create_environment(
         "fps-jupyterlab",
         *environment.packages,
     )
-    await run_exec("mamba", "install", "-y", *packages, "-n", name)
+    await to_thread.run_sync(create, name, packages, ("conda-forge",))
     PROJECTS.environments[name] = environment
 
 
@@ -78,9 +80,12 @@ async def create_server(name):
         )
 
     port = get_open_port()
-    home = os.path.expanduser("~")
+    if os.name == "nt":
+        jupyverse = Path(sys.prefix) / "envs" / name / "Scripts" / "jupyverse.exe"
+    else:
+        jupyverse = Path(sys.prefix) / "envs" / name / "bin" / "jupyverse"
     process = await run_exec(
-        f"{home}/mambaforge/envs/{name}/bin/jupyverse",
+        jupyverse,
         "--no-open-browser",
         "--auth.mode=noauth",
         f"--port={port}",
@@ -90,9 +95,8 @@ async def create_server(name):
     PROCESSES[pid] = process
     PROJECTS.servers[name] = Server(
         id=pid,
-        url=f"http://localhost:{port}",
+        url=f"http://127.0.0.1:{port}",
     )
-    time.sleep(2)
 
 
 @router.get("/api/servers/{name}")

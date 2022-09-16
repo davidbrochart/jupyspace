@@ -2,7 +2,7 @@ import asyncio
 
 
 async def run_exec(*args, wait: bool = True):
-    proc = await asyncio.create_subprocess_exec(*args)
+    proc = await asyncio.create_subprocess_exec(*args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
     if wait:
         returncode = await proc.wait()
         if returncode != 0:

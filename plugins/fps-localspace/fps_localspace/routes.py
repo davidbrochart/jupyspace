@@ -91,12 +91,19 @@ async def create_server(name):
         f"--port={port}",
         wait=False,
     )
+    while True:
+        data = await process.stderr.readline()
+        line = data.decode('ascii')
+        if "Started server process" in line:
+            break
+
     pid = str(process.pid)
     PROCESSES[pid] = process
-    PROJECTS.servers[name] = Server(
+    PROJECTS.servers[name] = server = Server(
         id=pid,
         url=f"http://127.0.0.1:{port}",
     )
+    return server
 
 
 @router.get("/api/servers/{name}")

@@ -25,6 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "fps>=0.0.19",
+  "anyio",
 ]
 dynamic = ["version"]
 

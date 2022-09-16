@@ -1,0 +1,6 @@
+name: jupyspace
+channels:
+    - conda-forge
+dependencies:
+    - pip
+    - mamba

@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fps-localspace"
-description = ''
+name = "fps-spacex"
+description = "JupySpace's user interface"
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
@@ -24,18 +24,16 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "fps>=0.0.19",
-  "anyio",
+  "jupyspace-api",
+  "jinja2",
 ]
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspace#readme"
-Issues = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspace/issues"
-Source = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspace"
+Source = "https://github.com/davidbrochart/jupyspace/plugins/fps-spacex"
 
-[project.entry-points.fps_router]
-fps-localspace = "fps_localspace.routes"
+[project.entry-points."asphalt.components"]
+spacex = "fps_spacex.main:SpacexComponent"
 
 [tool.hatch.version]
-path = "fps_localspace/__about__.py"
+path = "fps_spacex/__init__.py"

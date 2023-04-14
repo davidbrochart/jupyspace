@@ -1,0 +1,14 @@
+<div id="servers">
+    <table>
+        <tbody>
+            {% for server in servers %}
+                {% if server.env_name == env.name %}
+                <tr>{% include 'server.html' %}</tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <div id="create-server">
+    {% include 'create_server.html' %}
+    </div>
+</div>

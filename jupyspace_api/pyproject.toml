@@ -3,12 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyspace"
-description = ''
+name = "jupyspace_api"
+description = "The public API for Jupyspace"
 readme = "README.md"
-requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+requires-python = ">=3.8"
+keywords = [
+  "jupyspace", "api",
+]
 authors = [
   { name = "David Brochart", email = "david.brochart@gmail.com" },
 ]
@@ -23,26 +25,18 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "asphalt >=4.11.0,<5",
-  "asphalt-web[fastapi] >=1.1.0,<2",
+  "pydantic >=1.10.6,<2",
+  "fastapi >=0.95.0,<1",
+  "python-multipart",
 ]
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/davidbrochart/jupyspace#readme"
-Issues = "https://github.com/davidbrochart/jupyspace/issues"
-Source = "https://github.com/davidbrochart/jupyspace"
+Source = "https://github.com/davidbrochart/jupyspace/jupyspace_api"
 
-[project.optional-dependencies]
-test = [
-  "pytest",
-  "pytest-asyncio",
-  "httpx",
-]
-
-#[project.scripts]
-#jupyspace-server = "fps_uvicorn.cli:app"
-#jupyspace = "jupyspace.jupyspace:app_run"
+[project.entry-points."asphalt.components"]
+app = "jupyspace_api.main:AppComponent"
+jupyspace = "jupyspace_api.main:JupyspaceComponent"
 
 [tool.hatch.version]
-path = "jupyspace/__init__.py"
+path = "jupyspace_api/__init__.py"

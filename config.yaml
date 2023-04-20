@@ -1,0 +1,26 @@
+component:
+  type: jupyspace
+  components:
+    app:
+      type: app
+    space:
+      type: space
+    spacex:
+      type: spacex
+
+logging:
+  version: 1
+  disable_existing_loggers: false
+  formatters:
+    default:
+      format: '[%(asctime)s %(levelname)s] %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: default
+  root:
+    handlers: [console]
+    level: INFO
+  loggers:
+    webnotifier:
+      level: DEBUG

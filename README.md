@@ -11,10 +11,23 @@
 - [Installation](#installation)
 - [License](#license)
 
-## Installation
+## Development installation
+
+Install [micromamba](https://mamba.readthedocs.io/en/latest/installation.html#micromamba) for your platform, then:
+```console
+micromamba create -n jupyspace
+micromamba activate jupyspace
+micromamba install -c conda-forge python
+pip install -e jupyspace_api
+pip install -e plugins/localspace
+pip install -e plugins/spacex
+pip install -e .[test]
+```
+
+## Usage
 
 ```console
-pip install jupyspace
+asphalt run config.yaml
 ```
 
 ## License

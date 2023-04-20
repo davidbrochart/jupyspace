@@ -1,0 +1,7 @@
+{% for env in environments %}
+    <tr>
+        <td class="border">{{ env.name }}</td>
+        <td class="border">{{ env.path }}</td>
+        <td class="border">{{ env.installed }}</td>
+    </tr>
+{% endfor %}

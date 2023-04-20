@@ -24,21 +24,18 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Setup mamba
-      uses: conda-incubator/setup-miniconda@v2
+    - name: Install micromamba
+      uses: mamba-org/provision-with-micromamba@main
       with:
-        activate-environment: jupyspace
         environment-file: dev-environment.yml
-        python-version: ${{ matrix.python-version }}
-        mamba-version: "*"
-        auto-activate-base: false
-        channels: conda-forge
+        environment-name: jupyspace
 
     - name: Install jupyspace
       run: |
-        pip install ./plugins/fps-localspace
+        pip install ./jupyspace_api
+        pip install ./plugins/localspace
         pip install .[test]
 
     - name: Run tests

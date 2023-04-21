@@ -43,3 +43,14 @@ test = [
 
 [tool.hatch.version]
 path = "jupyspace/__init__.py"
+
+[tool.jupyter-releaser]
+skip = [ "check-links", "check-manifest",]
+
+[tool.jupyter-releaser.options]
+python_packages = [
+    "jupyspace_api:jupyspace_api",
+    "plugins/localspace:fps-localspace",
+    "plugins/spacex:fps-spacex",
+    ".:jupyspace:jupyspace_api,fps-localspace,fps-spacex"
+]

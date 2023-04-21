@@ -1,9 +1,10 @@
 import logging
 
+import httpx
 from asphalt.core import Component, Context
 from jupyspace_api.app import App
 from jupyspace_api.space import Space
-from jupyspace_api.space.models import Environment
+from jupyspace_api.space.models import Environment, Server
 from sqlmodel import Session, select
 
 from .micromamba import micromamba
@@ -25,9 +26,18 @@ class LocalspaceComponent(Component):
         ctx.add_resource(space, types=Space)
 
         create_db_and_tables()
-        # discover existing environments
         with Session(engine) as session:
-            for env_name, env_path in (await micromamba.env_list()).items():
+            existing_envs = await micromamba.env_list()
+            env_names = list(existing_envs.keys())
+            environments = session.exec(select(Environment)).all()
+            for env in environments:
+                if env.name not in env_names:
+                    logger.info("Environment cannot be found: %s", env.name)
+                    session.delete(env)
+
+            # discover existing environments
+            for env_name, env_path in existing_envs.items():
+                logger.info("Found environment: %s", env_name)
                 statement = select(Environment).where(Environment.name == env_name)
                 environment = session.exec(statement).first()
                 if not environment:
@@ -38,3 +48,19 @@ class LocalspaceComponent(Component):
                     environment = Environment(name=env_name, path=env_path, installed=installed)
                     session.add(environment)
                     session.commit()
+                else:
+                    # environment in database, check that installed packages match requirements?
+                    # (because of out-of-band changes)
+                    pass
+
+            # check running servers
+            servers = session.exec(select(Server)).all()
+            for server in servers:
+                async with httpx.AsyncClient() as http:
+                    try:
+                        await http.get(server.url)
+                        logger.info("Found server: %s", server.url)
+                    except httpx.ConnectError:
+                        logger.info("Server unresponsive: %s", server.url)
+                        session.delete(server)
+            session.commit()

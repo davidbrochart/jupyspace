@@ -25,6 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "sqlmodel",
+  "httpx",
   "jupyspace-api",
 ]
 dynamic = ["version"]
@@ -34,8 +35,9 @@ Documentation = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspa
 Issues = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspace/issues"
 Source = "https://github.com/davidbrochart/jupyspace/plugins/fps-localspace"
 
-[project.entry-points."asphalt.components"]
-space = "fps_localspace.main:LocalspaceComponent"
+[project.entry-points]
+"asphalt.components"   = {space = "fps_localspace.main:LocalspaceComponent"}
+"jupyspace.components" = {space = "fps_localspace.main:LocalspaceComponent"}
 
 [tool.hatch.version]
 path = "fps_localspace/__init__.py"

@@ -169,3 +169,5 @@ class _Space(Space):
         process.kill()
         if os.name != "nt":  # FIXME
             await process.wait()
+
+        del PROCESSES[server_id]

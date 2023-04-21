@@ -28,15 +28,24 @@ dependencies = [
   "pydantic >=1.10.6,<2",
   "fastapi >=0.95.0,<1",
   "python-multipart",
+  "rich-click >=1.6.1,<2",
+  "asphalt >=4.11.0,<5",
+  "asphalt-web[fastapi] >=1.1.0,<2",
 ]
 dynamic = ["version"]
 
 [project.urls]
 Source = "https://github.com/davidbrochart/jupyspace/jupyspace_api"
 
+[project.scripts]
+jupyspace = "jupyspace_api.cli:main"
+
 [project.entry-points."asphalt.components"]
 app = "jupyspace_api.main:AppComponent"
 jupyspace = "jupyspace_api.main:JupyspaceComponent"
+
+[project.entry-points."jupyspace.components"]
+app = "jupyspace_api.main:AppComponent"
 
 [tool.hatch.version]
 path = "jupyspace_api/__init__.py"

@@ -8,7 +8,7 @@ description = ''
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = ["jupyter", "conda"]
 authors = [
   { name = "David Brochart", email = "david.brochart@gmail.com" },
 ]
@@ -23,8 +23,9 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "asphalt >=4.11.0,<5",
-  "asphalt-web[fastapi] >=1.1.0,<2",
+  "jupyspace_api",
+  "fps-localspace",
+  "fps-spacex",
 ]
 dynamic = ["version"]
 
@@ -39,10 +40,6 @@ test = [
   "pytest-asyncio",
   "httpx",
 ]
-
-#[project.scripts]
-#jupyspace-server = "fps_uvicorn.cli:app"
-#jupyspace = "jupyspace.jupyspace:app_run"
 
 [tool.hatch.version]
 path = "jupyspace/__init__.py"

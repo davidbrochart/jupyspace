@@ -32,8 +32,9 @@ dynamic = ["version"]
 [project.urls]
 Source = "https://github.com/davidbrochart/jupyspace/plugins/fps-spacex"
 
-[project.entry-points."asphalt.components"]
-spacex = "fps_spacex.main:SpacexComponent"
+[project.entry-points]
+"asphalt.components"   = {spacex = "fps_spacex.main:SpacexComponent"}
+"jupyspace.components" = {spacex = "fps_spacex.main:SpacexComponent"}
 
 [tool.hatch.version]
 path = "fps_spacex/__init__.py"

@@ -9,16 +9,16 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jupyspace_api.app import App
+from jupyspace_api.router import Router
 from jupyspace_api.space import Space
 from jupyspace_api.space.models import EnvironmentCreate
-from jupyspace_api.spacex import Spacex
 
 
 here = Path(__file__).parent.resolve()
 templates = Jinja2Templates(directory=here / "templates")
 
 
-class _Spacex(Spacex):
+class Spacex(Router):
     def __init__(
         self,
         app: App,

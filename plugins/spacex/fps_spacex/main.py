@@ -1,14 +1,8 @@
-import logging
-
 from asphalt.core import Component, Context
 from jupyspace_api.app import App
 from jupyspace_api.space import Space
-from jupyspace_api.spacex import Spacex
 
-from .routes import _Spacex
-
-
-logger = logging.getLogger("spacex")
+from .routes import Spacex
 
 
 class SpacexComponent(Component):
@@ -20,5 +14,5 @@ class SpacexComponent(Component):
         app = await ctx.request_resource(App)
         space = await ctx.request_resource(Space)
 
-        spacex = _Spacex(app, space)
-        ctx.add_resource(spacex, types=Spacex)
+        spacex = Spacex(app, space)
+        ctx.add_resource(spacex)

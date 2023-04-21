@@ -7,7 +7,7 @@ name = "fps-spacex"
 description = "JupySpace's user interface"
 readme = "README.md"
 requires-python = ">=3.7"
-license = "MIT"
+license = { text = "MIT" }
 keywords = []
 authors = [
   { name = "David Brochart", email = "david.brochart@gmail.com" },

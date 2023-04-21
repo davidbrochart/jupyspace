@@ -7,7 +7,7 @@ name = "jupyspace"
 description = ''
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
+license = { text = "MIT" }
 keywords = ["jupyter", "conda"]
 authors = [
   { name = "David Brochart", email = "david.brochart@gmail.com" },

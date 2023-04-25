@@ -1,15 +1,10 @@
-# jupyspace
+# JupySpace
 
 [![PyPI - Version](https://img.shields.io/pypi/v/jupyspace.svg)](https://pypi.org/project/jupyspace)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/jupyspace.svg)](https://pypi.org/project/jupyspace)
 [![Build Status](https://github.com/davidbrochart/jupyspace/workflows/CI/badge.svg)](https://github.com/davidbrochart/jupyspace/actions)
 
------
-
-**Table of Contents**
-
-- [Installation](#installation)
-- [License](#license)
+JupySpace is a web server and client allowing to manage [conda-forge](https://conda-forge.org) environments from the browser and access them through [JupyterLab](https://jupyterlab.readthedocs.io).
 
 ## Installation
 
@@ -39,7 +34,3 @@ asphalt run config.yaml
 ```console
 jupyspace --open-browser
 ```
-
-## License
-
-`jupyspace` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
